@@ -1,0 +1,13 @@
+Package: dnshook
+Version: 0.2
+Architecture: armhf
+Maintainer: Julien Blitte <julien.blitte@gmail.com>
+Installed-Size: 1024
+Depends: libc6
+Conflicts: bind9, dnsmasq, pdns-server, unbound
+Section: devel
+Priority: optional
+Homepage: http://marin.jb.free.fr/dnshook
+Description: Mini DNS server to hooking the web traffic by answering dns request
+ dnshook is a mini DNS server to hook web traffic by answering dns request.
+ It can be use for captive portal or security tests.

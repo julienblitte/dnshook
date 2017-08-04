@@ -1,0 +1,37 @@
+#!/bin/sh
+# reload the dnshook service server when an interface comes up
+NAME=dnshook
+DAEMON=/usr/sbin/$NAME
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+
+if [ "$IFACE" = lo ]; then
+	exit 0
+fi
+
+if [ "$MODE" != start ]; then
+	exit 0
+fi
+
+if [ "$ADDRFAM" != inet ] && [ "$ADDRFAM" != inet6 ]; then
+	exit 0
+fi
+
+if [ ! -x "$SCRIPTNAME" ]; then
+	exit 0
+fi
+
+runlevel=$(runlevel|cut -d' ' -f 2)
+if [ "$runlevel" != "" ]; then
+	# should service be running at current runlevel - Note: SystemV for now
+	ls /etc/rc$runlevel.d/S* -l | grep "$NAME" > /dev/null
+	if [ $? -ne 0 ]; then
+		exit 0
+	fi
+fi
+
+"$SCRIPTNAME" stop
+"$SCRIPTNAME" start
+
+exit 0
+
