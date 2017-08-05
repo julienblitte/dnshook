@@ -153,6 +153,7 @@ case "$1" in
 	;;
   fw-config)
 	do_fwconfig
+	;;
   *)
 	echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload|fw-config}" >&2
 	exit 3
